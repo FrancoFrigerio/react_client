@@ -34,7 +34,6 @@ const  DetalleCliente = (props) => {
     
     const sendFactura= async(e)=>{
      e.preventDefault();    
-    debugger
      try{
         await axios({
             method:'POST',
@@ -64,13 +63,11 @@ const  DetalleCliente = (props) => {
             setFactura({
                 ...factura, [e.target.name]:parseInt(e.target.value)
             })
-            
         }else{
             setFactura({
                 ...factura,[e.target.name]:e.target.value
             })
         }
-
     }
     
     useEffect(() => {
