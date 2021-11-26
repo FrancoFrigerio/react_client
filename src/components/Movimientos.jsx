@@ -1,26 +1,31 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import DetalleFiltrado from './DetalleFiltrado'
 
 const Movimientos = () => {
    
     const [movimientos, setMovimientos] = useState(null)
+   
     const [nextLink, setNextLink] = useState(null)
     const [previousLink, setpreviousLink] = useState(null)
     const url='http://localhost:8080/bill/dto'
     const [numberpage, setNumberpage] = useState(0)
     const [lastPage, setLastPage] = useState(null)
     const [totalElements, setTotalElements] = useState(null)
-    const [body, setBody] = useState({
-        sizePage:5,
-        page:0,
-        sort:'created_At',
-        order:'asc'
-    })
+   
+    
+    const [sizePage, setsizePage] = useState(5);
+    const [page, setPage] = useState(0)
+    const [sort, setSort] = useState('cliente.name')
+    const [order, setOrder] = useState('asc')
+    const [desde, setDesde] = useState('2021-09-02')
+    const [hasta, setHasta] = useState('2021-12-31')
+
+
 
     
     const fetchMovimientos =async()=>{
-       
         try{
             await axios({
                 method:'POST',
@@ -28,7 +33,14 @@ const Movimientos = () => {
                 headers:{
                     'Authorization':'Bearer '+ localStorage.getItem('token'),
                 },
-               data:body
+               data:{
+                   sizePage:sizePage,
+                   page:page,
+                   sort:sort,
+                   order:order,
+                   desde:desde,
+                   hasta:hasta
+               }
                 
             }).then(res =>{
                 console.log(res.data)
@@ -46,7 +58,7 @@ const Movimientos = () => {
         
     }
     const fetchNext =async()=>{
-        try{
+       try{
             await axios({
                 method:'POST',
                 url:url,
@@ -54,15 +66,18 @@ const Movimientos = () => {
                     'Authorization':'Bearer '+localStorage.getItem('token')
                 },
                 data:{
-                    sizePage:5,
-                    page:nextLink,
-                    sort:'created_At',
-                    order:'asc'
+                    sizePage:sizePage,
+                    page:page+1,
+                    sort:sort,
+                    order:order,
+                    desde:desde,
+                    hasta:hasta
                 }
             }).then(res =>{
                 setMovimientos(res.data.content)
+                setPage(page+1)
                 setNextLink(res.data.utils.next)
-                setNumberpage(numberpage+1)
+                setNumberpage(page+1)
                 setpreviousLink(res.data.utils.previous)
             }).catch(error=>{console.log(error)})
         }catch(error){
@@ -78,12 +93,15 @@ const Movimientos = () => {
                     'Authorization':'Bearer '+localStorage.getItem('token')
                 },
                 data:{
-                    sizePage:5,
-                    page:previousLink,
-                    sort:'created_At',
-                    order:'asc'
+                    sizePage:sizePage,
+                    page:page-1,
+                    sort:sort,
+                    order:order,
+                    desde:desde,
+                    hasta:hasta   
                 }
             }).then(res =>{
+                setPage(page-1)
                 setMovimientos(res.data.content)
                 setpreviousLink(res.data.utils.previous)
                 setNumberpage(numberpage-1)
@@ -94,17 +112,33 @@ const Movimientos = () => {
         }
     }
 
+    const saludar =()=>{
+        console.log("saludando")
+    }
+    const inputChange =(e)=>{
+        if(e.target.name === 'desde'){
+           setDesde(e.target.value)
+        }else{
+            setHasta(e.target.value)
+        }
+    }
+
 
     useEffect(() => {
         fetchMovimientos();
         
-    }, [])
+    }, [sort,desde,hasta])
    
     return (
         <div>
-            <div className="shadow p-3 mx-3" id='contMovimientos'>
-            <h4 className="text-start">Listado de movimientos</h4>
-            </div>
+            
+            <DetalleFiltrado
+                inputChange={inputChange}
+                sort={sort}
+                setSort={setSort}
+                order={order}
+                setOrder={setOrder}
+            />
             {
                 movimientos !=null?(
                     <div>
