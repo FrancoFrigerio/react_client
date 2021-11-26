@@ -32,7 +32,7 @@ const Clientes = (props) => {
             <div className="shadow p-3 mx-3" id='contClientes'>
                 <h4 className="text-start">Listado de clientes</h4>
             </div>
-            <div className="contTargets m-auto">
+            <div className="contTargets m-auto p-4">
               {
                 clients !== null?(
                     clients.map((client)=>
