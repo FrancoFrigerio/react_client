@@ -22,13 +22,13 @@ function Login(props){
       try{
             await axios({
               method:'POST',
-              url:'http://localhost:8080/login',
+              url:'http://localhost:8080/auth/login',
               Headers:{},
               data:{
                   "username":data.email,
                   "password":data.password
                 }
-            }).then(res=> localStorage.setItem('token',res.data.accessToken))
+            }).then(res=> localStorage.setItem('token',res.data.token))
             props.setauth(true)
             navigate("/inicio")
             .catch(error=>{console.log(error)})
