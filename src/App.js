@@ -8,11 +8,12 @@ import Navbar from './components/Navbar';
 import DetalleCliente from './components/DetalleCliente';
 import Movimientos from './components/Movimientos';
 import Usuarios from './components/Usuarios';
+import Productos from './components/Productos';
 
 function App() {
  const [authenticated, setAuthenticated] = useState(false)
  const [client, setClient] = useState(false)
-
+const [user, setUser] = useState(null); //usuario logueado
  
  useEffect(() => {
   if(localStorage.getItem('token')){
@@ -32,12 +33,13 @@ function App() {
         </div>):(null)
       }     
       <Routes>
-          <Route path="/login" element={!authenticated?(<Login setauth={setAuthenticated} auth={authenticated}/>):(<Navigate to="/inicio"/>)} exact={true}/>
-          <Route path="/inicio" element={authenticated?(<Inicio/>):(<Navigate to="/login"/>)}></Route>
-          <Route path="/clientes" element={authenticated?(<Clientes setclient={setClient}/>):(<Navigate to="/login"/>)}></Route>
+          <Route path="/login" element={!authenticated?(<Login setauth={setAuthenticated} auth={authenticated} setUser={setUser}/>):(<Navigate to="/inicio"/>)} exact={true}/>
+          <Route path="/inicio" element={authenticated?(<Inicio user={user}/>):(<Navigate to="/login"/>)}></Route>
+          <Route path="/clientes" element={authenticated?(<Clientes setclient={setClient} user={user}/>):(<Navigate to="/login"/>)}></Route>
           <Route path="/cliente/:id" element={authenticated?(<DetalleCliente setclient={setClient} client={client}/>):(<Navigate to="/login"/>)}></Route>
           <Route path="/movimientos" element={authenticated?(<Movimientos />):(<Navigate to="/login"/>)}></Route>
-          <Route path="/usuarios" element={authenticated?(<Usuarios />):(<Navigate to="/login"/>)}></Route>
+          <Route path="/usuarios" element={authenticated?(<Usuarios />):(<z to="/login"/>)}></Route>
+          <Route path="/productos" element={authenticated?(<Productos />):(<Navigate to="/login"/>)}></Route>
         </Routes>
       </BrowserRouter>
     </div>
