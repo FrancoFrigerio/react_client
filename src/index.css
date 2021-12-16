@@ -39,6 +39,12 @@ code {
 #contClientes{
   border-left: rgba(255, 228, 105, 0.66) 10px solid;
 }
+#contProductos{
+  border-left: rgba(188, 105, 255, 0.66) 10px solid;
+}
+#contUsuarios{
+  border-left: rgba(255, 105, 205, 0.66) 10px solid;
+}
 #contForm{
   position: absolute;
   top: 0%;
@@ -54,5 +60,23 @@ code {
 .link{
   text-decoration: none;
   color: rgb(65, 150, 139);
+}
+.cont_targetProduct{
+  width: 95%;
+  min-height: 400px;
+  margin: auto; 
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+.targeProduct{
+  margin: 1% 2%;
+  min-height: 200px;
+  width: 45%;
+}
+.imgBtn{
+  color: rgb(255, 221, 110);
+  width: 20%;
 }
 

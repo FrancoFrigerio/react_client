@@ -22,8 +22,7 @@ const Movimientos = () => {
     const [desde, setDesde] = useState('2021-09-02')
     const [hasta, setHasta] = useState('2021-12-31')
 
-
-
+    
     
     const fetchMovimientos =async()=>{
         try{
@@ -43,9 +42,8 @@ const Movimientos = () => {
                }
                 
             }).then(res =>{
-                console.log(res.data)
                 setMovimientos(res.data.content)
-                setNextLink(res.data.utils.next)
+                setNextLink(res.data.utils.next_page)
                 setpreviousLink(res.data.utils.previous)
                 setLastPage(res.data.utils.last_page)
                 setTotalElements(res.data.utils.total_elements)
@@ -76,7 +74,7 @@ const Movimientos = () => {
             }).then(res =>{
                 setMovimientos(res.data.content)
                 setPage(page+1)
-                setNextLink(res.data.utils.next)
+                setNextLink(res.data.utils.next_page)
                 setNumberpage(page+1)
                 setpreviousLink(res.data.utils.previous)
             }).catch(error=>{console.log(error)})
@@ -105,29 +103,29 @@ const Movimientos = () => {
                 setMovimientos(res.data.content)
                 setpreviousLink(res.data.utils.previous)
                 setNumberpage(numberpage-1)
-                setNextLink(res.data.utils.next)
+                setNextLink(res.data.utils.next_page)
             }).catch(error=>{console.log(error)})
         }catch(error){
             console.log(error)
         }
     }
 
-    const saludar =()=>{
-        console.log("saludando")
-    }
+    
     const inputChange =(e)=>{
+        console.log(e)
         if(e.target.name === 'desde'){
            setDesde(e.target.value)
         }else{
             setHasta(e.target.value)
         }
     }
-
-
     useEffect(() => {
         fetchMovimientos();
         
     }, [sort,desde,hasta])
+
+
+    
    
     return (
         <div>

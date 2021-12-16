@@ -14,9 +14,7 @@ function Login(props){
       setData({
           ...data, [e.target.name]:e.target.value
       })
-      
      }
-    
     const loguearse = async(e) => {
       e.preventDefault();
       try{
@@ -28,10 +26,15 @@ function Login(props){
                   "username":data.email,
                   "password":data.password
                 }
-            }).then(res=> localStorage.setItem('token',res.data.token))
-            props.setauth(true)
-            navigate("/inicio")
-            .catch(error=>{console.log(error)})
+            }).then(res=>{
+                localStorage.setItem('token',res.data.token)
+                localStorage.setItem('roles',res.data.roles)
+                props.setauth(true)
+                props.setUser(res.data)
+                navigate("/clientes")
+            }).catch(error=>{console.log(error)})
+
+            
         }catch(error){
                 
         }

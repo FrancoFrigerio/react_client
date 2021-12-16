@@ -3,7 +3,7 @@ import React from 'react'
 const DetalleFiltrado = (props) => {
     return (
         <div>
-            <div className="shadow p-3 mx-3" id='contMovimientos'>
+            <div className="shadow p-3 mx-3 rounded" id='contMovimientos'>
                 <div className="pb-2">
                     <h3 className="text-start">Listado de movimientos</h3>
                 </div>

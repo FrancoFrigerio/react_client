@@ -1,15 +1,14 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import Cliente from './Cliente'
 
 const Clientes = (props) => {
     
     const [clients, setClients] = useState([])
-    
+    const [listRoles, setlistRoles] = useState([])
     const fetchClients =async()=>{
         try{
-            const resp = await axios({
+            await axios({
                 method:'GET',
                 url:'http://localhost:8080/client/',
                 headers:{
@@ -21,23 +20,29 @@ const Clientes = (props) => {
             console.log(error)
         }
     }
+    const fetchRoles =()=>{
+        setlistRoles(localStorage.getItem('roles'))
+    }
     
     useEffect(() => {
         fetchClients()
-        
+        fetchRoles();
+       
     }, [])
     
     return (
         <div>
-            <div className="shadow p-3 mx-3" id='contClientes'>
-                <h4 className="text-start">Listado de clientes</h4>
+            <div className="shadow p-3 mx-3 rounded" id='contClientes'>
+                <div className='pb-2'>
+                    <h3 className="text-start">Listado de clientes</h3>
+                </div>
             </div>
             <div className="contTargets m-auto p-4">
               {
                 clients !== null?(
                     clients.map((client)=>
                         <div className="target rounded" key={client.id}>
-                            <Cliente client={client} setclient={props.setclient}></Cliente>
+                            <Cliente client={client} setclient={props.setclient} listRoles={listRoles}></Cliente>
                         </div>)
                 ):(console.log('vacio'))
                }
