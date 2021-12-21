@@ -45,12 +45,13 @@ code {
 #contUsuarios{
   border-left: rgba(255, 105, 205, 0.66) 10px solid;
 }
-#contForm{
+.contForm{
   position: absolute;
   top: 0%;
   height: 100vh;
   width: 100%;
   background-color: rgba(206, 206, 206, 0.877);
+  z-index: 1;
 }
 .form{
   margin: auto;
@@ -79,4 +80,10 @@ code {
   color: rgb(255, 221, 110);
   width: 20%;
 }
+.productModal{
+ 
+ background-color: rgba(255, 255, 255, 0.829);
+  
+}
+
 

@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import DetalleFiltrado from './DetalleFiltrado'
+import FacturaComponent from './FacturaComponent'
 
 const Movimientos = () => {
    
@@ -9,7 +10,7 @@ const Movimientos = () => {
    
     const [nextLink, setNextLink] = useState(null)
     const [previousLink, setpreviousLink] = useState(null)
-    const url='http://localhost:8080/bill/dto'
+    const url='http://localhost:8080/bill/'
     const [numberpage, setNumberpage] = useState(0)
     const [lastPage, setLastPage] = useState(null)
     const [totalElements, setTotalElements] = useState(null)
@@ -22,13 +23,13 @@ const Movimientos = () => {
     const [desde, setDesde] = useState('2021-09-02')
     const [hasta, setHasta] = useState('2021-12-31')
 
-    
+    const [factura, setFactura] = useState(null)
     
     const fetchMovimientos =async()=>{
         try{
             await axios({
                 method:'POST',
-                url:url,
+                url:url.concat('dto'),
                 headers:{
                     'Authorization':'Bearer '+ localStorage.getItem('token'),
                 },
@@ -51,15 +52,13 @@ const Movimientos = () => {
            }catch(error){
                console.log(error)
            }
-            
-        
-        
     }
+
     const fetchNext =async()=>{
        try{
             await axios({
                 method:'POST',
-                url:url,
+                url:url.concat('dto'),
                 headers:{
                     'Authorization':'Bearer '+localStorage.getItem('token')
                 },
@@ -86,7 +85,7 @@ const Movimientos = () => {
         try{
             await axios({
                 method:'POST',
-                url:url,
+                url:url.concat('dto'),
                 headers:{
                     'Authorization':'Bearer '+localStorage.getItem('token')
                 },
@@ -109,6 +108,23 @@ const Movimientos = () => {
             console.log(error)
         }
     }
+    const fetchFactura=async(id)=>{
+        try{
+            await axios({
+                method:'GET',
+                url:url.concat(id),
+                headers:{
+                    'Authorization':'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(res =>{
+                console.log(res.data)
+                setFactura(res.data)
+            })
+        }catch(error){
+            console.log(error)
+        } 
+        
+    } 
 
     
     const inputChange =(e)=>{
@@ -124,11 +140,16 @@ const Movimientos = () => {
         
     }, [sort,desde,hasta])
 
-
+    
     
    
     return (
         <div>
+            {
+                factura !== null?(
+                    <FacturaComponent factura={factura} setFactura={setFactura}/>
+                ):(null)
+            }
             
             <DetalleFiltrado
                 inputChange={inputChange}
@@ -146,7 +167,7 @@ const Movimientos = () => {
                                     <th className="scop">#</th>
                                     <th className="scop">Fecha</th>
                                     <th className="scop">Cliente</th>
-                                    <th className="scop">Descripcion</th>
+                                    <th className="scop">Factura</th>
                                     <th className="scop">Total</th>
                                 </tr>
                             </thead>
@@ -162,7 +183,13 @@ const Movimientos = () => {
                                                     <span> <i className='bx bxs-right-top-arrow-circle'></i></span>
                                                 </Link>
                                             </th>
-                                            <th scope="row" className="text-muted">{e.description}</th>
+                                         
+                                            <th scope="row" className="text-muted">
+                                                <button className='btn' onClick={()=>fetchFactura(e.id)}>
+                                                    <span className='text-secondary fw-bolder'>{e.description}</span>
+                                                    <i className='bx bx-expand'></i>
+                                                </button>
+                                            </th>
                                             <th scope="row" className="text-muted">$ {e.total},00</th>
                                         </tr>
                                     )

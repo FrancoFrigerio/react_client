@@ -29,7 +29,7 @@ const Producto = ({product}) => {
             <h4>{product.name}</h4>
             <h6 className='text-muted'>{product.price}</h6>
             <h6 className='text-secondary'>{product.created_At}</h6>
-            <img src={photo.img} className='img-fluid'></img>
+            <img src={photo.img} className='img-fluid' alt='product'></img>
             <div className='text-center'>
                 <button onClick={()=>changePhoto()} className='btn btn-outline-warning imgBtn fs-3'>
                     {
