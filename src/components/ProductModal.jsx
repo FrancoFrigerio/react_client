@@ -4,7 +4,7 @@ const ProductModal = (props) => {
    const [photo, setPhoto] = useState(props.viewProduct.urlPhoto1)
     
     return (
-        <div className='contForm pt-5'>
+        <div className=''>
             <div className='w-50 m-auto shadow p-3 mt-5 rounded productModal'>
                 <div className='d-flex justify-content-end'>
                     <button onClick={()=>props.setViewProduct(null)} type='button' className='btn btn-outline-danger'>
