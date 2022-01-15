@@ -35,12 +35,12 @@ const Productos = () => {
                     <h3 className="text-start">Listado de productos</h3>
                 </div>
             </div>
-            <div className='mt-5'>
+            <div className='mt-5 d-flex justify-content-center'>
                 {
                     products !== null?(
-                        <div className='cont_targetProduct'>
+                        <div className='d-flex justify-content-center flex-wrap'>
                             {products.map(e =>
-                                <div key={e.id} className='targeProduct border rounded p-2'>
+                                <div key={e.id} className='border m-2 col-4 p-2'>
                                     <Producto product={e}></Producto>
                                 </div>    
                             )}

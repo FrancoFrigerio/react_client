@@ -15,7 +15,7 @@ const TableProducts = (props) => {
                 </thead>
                 <tbody>
                 {
-                    props.listProducts.map((e,index)=>
+                    props.listProducts.map((e)=>
                     <tr key={e.id}>
                         <td>{e.id}</td>
                         <td>{e.name}</td>
@@ -25,7 +25,7 @@ const TableProducts = (props) => {
                     </tr>)
                 }
                 </tbody>
-                </table>
+            </table>
                 <div>
                     {
                         props.itemsFactura.map((e,index)=>

@@ -62,28 +62,33 @@ code {
   text-decoration: none;
   color: rgb(65, 150, 139);
 }
-.cont_targetProduct{
-  width: 95%;
-  min-height: 400px;
+#cont_targetProduct{
+  top: 0%;
+  padding-top: 5%;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.974);
   margin: auto; 
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   flex-wrap: wrap;
   flex-direction: row;
+  z-index: 20;
 }
 .targeProduct{
   margin: 1% 2%;
   min-height: 200px;
-  width: 45%;
+  width: 30%;
 }
 .imgBtn{
   color: rgb(255, 221, 110);
   width: 20%;
 }
 .productModal{
- 
- background-color: rgba(255, 255, 255, 0.829);
-  
+  min-height: 400px;
+  min-width: 500px;
+  background-color: rgba(255, 255, 255, 0.829);
 }
 
 
