@@ -61,13 +61,13 @@ const FacturaComponent = ({factura,setFactura}) => {
                                             <td>{e.product.name}</td>
                                             <td>{e.count}</td>
                                             <td className='fw-bolder'>$ {e.product.price}</td>
-                                            <td className='fw-bolder'>$ {e.product.price * e.count}</td>
+                                            <td className='fw-bolder'>$ {Math.round(e.product.price * e.count * 100/100)}</td>
                                         </tr>)
                                     }
                                   </tbody>
                               </table>
                             <div className='d-flex justify-content-end mx-5 fs-4 fw-bolder py-3'>
-                                <span>Total : </span> <span> $ {factura.total},00</span>
+                                <span>Total : </span> <span> $ {factura.total}</span>
                             </div>
                         </div>
                         <div className='d-flex justify-content-end m-3'>
