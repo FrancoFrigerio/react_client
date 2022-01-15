@@ -128,7 +128,6 @@ const Movimientos = () => {
 
     
     const inputChange =(e)=>{
-        console.log(e)
         if(e.target.name === 'desde'){
            setDesde(e.target.value)
         }else{
